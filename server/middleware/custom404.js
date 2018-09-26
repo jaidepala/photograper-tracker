@@ -11,14 +11,14 @@ This will redirect back to your angular app
 and angular's router will route the url correctly while still being served by loopback.
 */
 module.exports = function() {
-  var path = require('path');
-  return function urlNotFound(req, res, next) {
-    let angularIndex = path.resolve('client/dist/index.html');
-    res.sendFile(angularIndex, function(err) {
-      if (err) {
-        console.error(err);
-        res.status(err.status).end();
-      }
-    });
-  };
+    var path = require('path');
+    return function urlNotFound(req, res, next) {
+        let angularIndex = path.resolve('client/dist/index.html');
+        res.sendFile(angularIndex, function(err) {
+            if (err) {
+                console.error(err);
+                res.status(err.status).end();
+            }
+        });
+    };
 };

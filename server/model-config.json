@@ -10,7 +10,8 @@
       "loopback/common/mixins",
       "loopback/server/mixins",
       "../common/mixins",
-      "./mixins"
+      "./mixins",
+      "../node_modules/@mean-expert/loopback-component-realtime/dist/mixins"
     ]
   },
   "User": {
@@ -40,5 +41,13 @@
   },
   "Angular_Loopback": {
     "dataSource": null
+  },
+  "people": {
+    "dataSource": "db",
+    "public": true
+  },
+  "post": {
+    "dataSource": "db",
+    "public": true
   }
 }

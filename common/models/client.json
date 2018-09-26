@@ -1,25 +1,24 @@
 {
-    "name": "client",
-    "base": "PersistedModel",
-    "idInjection":false,
-    "properties": {
+  "name": "client",
+  "base": "PersistedModel",
+  "idInjection": false,
+  "properties": {},
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "find"
     },
-    "validations": [],
-    "relations": {},
-    "acls": [
-      {
-        "accessType": "EXECUTE",
-        "principalType": "ROLE",
-        "principalId": "$everyone",
-        "permission": "ALLOW",
-        "property": "find"
-      },
-      {
-        "accessType": "READ",
-        "principalType": "ROLE",
-        "principalId": "$everyone",
-        "permission": "ALLOW"
-      }
-    ],
-    "methods": {}
-  }
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}

@@ -26,3 +26,13 @@ Before running the tests make sure you are serving the app via `ng serve`.
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+|  Error   | Solution    |
+
+| Angular error No module factory available for dependency type: ContextElementDependency   |  ⋅⋅⋅1. Package.json: remove webpack from DevDependencies
+⋅⋅⋅2. rm -R node_modules (remove node_modules folder)
+⋅⋅⋅3. npm i -g webpack
+⋅⋅⋅4. npm i -g webpack-dev-server
+⋅⋅⋅5. remove package-lock.json (if it's there)
+⋅⋅⋅6. npm i
+⋅⋅⋅7. npm start  |

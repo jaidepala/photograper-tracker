@@ -1,0 +1,21 @@
+{
+  "name": "demouser",
+  "plural": "demousers",
+  "base": "AccessToken",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "firstproperty": {
+      "type": "string"
+    },
+    "secondproperty": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

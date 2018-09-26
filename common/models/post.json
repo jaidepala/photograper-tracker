@@ -1,0 +1,48 @@
+{
+    "name": "post",
+    "plural": "posts",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "options":
+    {
+        "validateUpsert": true
+    },
+    "properties":
+    {
+        "poster":
+        {
+            "type": "string",
+            "required": true
+        },
+        "posterId":
+        {
+            "type": "string",
+            "required": true
+        },
+        "description":
+        {
+            "type": "string",
+            "required": true
+        },
+        "location":
+        {
+            "type": "string"
+        },
+        "assignedTo":
+        {
+            "type": "array"
+        },
+        "status":
+        {
+            "type": "string",
+            "required": true,
+            "default": "0"
+        }
+    },
+    "validations": [],
+    "relations":
+    {},
+    "acls": [],
+    "methods":
+    {}
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Demo1",
+  "plural": "Demo1s",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "first": {
+      "type": "string",
+      "required": true
+    },
+    "second": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
