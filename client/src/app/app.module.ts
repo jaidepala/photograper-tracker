@@ -12,11 +12,13 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 // https://stackoverflow.com/q/44517737
 import { RouterModule, Routes } from '@angular/router';
 import { routing } from './app.routing';
+// import { MomentagoPipe } from './pipes/momentago.pipe';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavbarComponent
+        // MomentagoPipe
     ],
     imports: [
         RouterModule,

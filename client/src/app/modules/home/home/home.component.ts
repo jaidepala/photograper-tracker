@@ -105,6 +105,11 @@ export class HomeComponent implements OnInit {
 		});
 	};
 
+	showCommentBox( thisPost ) {
+
+		thisPost.showCommentBox = !thisPost.showCommentBox;
+	};
+
 	getPosts() {
 
 		this.post.find({
@@ -127,9 +132,59 @@ export class HomeComponent implements OnInit {
 				return false;
 			};
 
+			for(var i = 0, len = result.length; i < len; i++) {
+				var thisPost = result[i];
+
+				thisPost['showCommentBox'] = false;
+				thisPost['commentText'] = '';
+			};
+
 			this.home.post.list = result;
 
-			console.log('posts: ', result);
+		}, err => {
+
+			var msg = err.message;
+
+			this.toast({
+				type: 'error',
+				title: msg
+			});
+		});
+	};
+
+	addComments( thisPost ) {
+
+		var thisPostId 			= thisPost.id,
+			thisPostPoster 		= thisPost.poster,
+			thisPostPosterId 	= thisPost.posterId,
+			thisPostComment 	= thisPost.commentText;
+
+			console.log(thisPost);
+
+		this.post.updateAttributes(thisPostId, {
+			comment: [{
+				poster: this.home.user.details.email,
+				posterId: this.home.user.details.id,
+				text: thisPostComment
+			}]
+		})
+		.subscribe(( result ) => {
+
+			if( !result || result == null ) {
+
+				var msg = 'Failed to add comment.';
+
+				this.toast({
+					type: 'error',
+					title: msg
+				});
+
+				return false;
+			};
+
+			thisPost.commentText = '';
+
+			this.getPosts();
 
 		}, err => {
 
@@ -151,7 +206,8 @@ export class HomeComponent implements OnInit {
 			description: this.home.post.details.description,
 			location: this.home.post.details.location,
 			assignedTo: this.home.post.details.assignedTo,
-			status: this.home.post.details.status
+			status: this.home.post.details.status,
+			published: new Date().getTime()
 
 		})
 		.subscribe(( result ) => {

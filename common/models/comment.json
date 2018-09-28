@@ -1,6 +1,6 @@
 {
-    "name": "post",
-    "plural": "posts",
+    "name": "comment",
+    "plural": "comments",
     "base": "PersistedModel",
     "idInjection": true,
     "options":
@@ -14,45 +14,31 @@
             "type": "string",
             "required": true
         },
+        "postId":
+        {
+            "type": "string",
+            "required": true
+        },
         "posterId":
         {
             "type": "string",
             "required": true
         },
-        "description":
-        {
-            "type": "string",
-            "required": true
-        },
-        "comments":
-        {
-            "type": [
-                "object"
-            ],
-            "default": []
-        },
         "likes":
         {
-            "type": "object"
-        },
-        "location":
-        {
-            "type": "string"
-        },
-        "assignedTo":
-        {
-            "type": "array"
+            "type": "array",
+            "default": []
         },
         "published":
         {
             "type": "string",
             "required": true
         },
-        "status":
+        "comment":
         {
             "type": "string",
             "required": true,
-            "default": "0"
+            "default": []
         }
     },
     "validations": [],

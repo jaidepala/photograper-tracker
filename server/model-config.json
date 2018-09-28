@@ -49,5 +49,9 @@
   "post": {
     "dataSource": "db",
     "public": true
+  },
+  "comment": {
+    "dataSource": "db",
+    "public": true
   }
 }

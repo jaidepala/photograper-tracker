@@ -211,7 +211,7 @@ export class FireLoopRef<T> {
     }
     // Verify if the relationship model is public
     if (settings.model === '') {
-      throw new Error(`Relationship model is private, cam't use ${relationship} unless you set your model as public.`);
+      throw new Error('Relationship model is private, can\'t use ${relationship} unless you set your model as public.');
     }
     // Lets get a model reference and add a reference for all of the models
     let model: any = this.model.models.get(settings.model);

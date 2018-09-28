@@ -5,6 +5,7 @@ import { Client } from '../../models/Client';
 import { Angular_Loopback } from '../../models/Angular_Loopback';
 import { People } from '../../models/People';
 import { Post } from '../../models/Post';
+import { Comment } from '../../models/Comment';
 
 export interface Models { [name: string]: any }
 
@@ -17,6 +18,7 @@ export class SDKModels {
     Angular_Loopback: Angular_Loopback,
     People: People,
     Post: Post,
+    Comment: Comment,
     
   };
 

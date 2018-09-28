@@ -53,6 +53,7 @@ import { ClientApi } from './services/custom/Client';
 import { Angular_LoopbackApi } from './services/custom/Angular_Loopback';
 import { PeopleApi } from './services/custom/People';
 import { PostApi } from './services/custom/Post';
+import { CommentApi } from './services/custom/Comment';
 /**
 * @module SDKBrowserModule
 * @description
@@ -88,6 +89,7 @@ export class SDKBrowserModule {
         Angular_LoopbackApi,
         PeopleApi,
         PostApi,
+        CommentApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }

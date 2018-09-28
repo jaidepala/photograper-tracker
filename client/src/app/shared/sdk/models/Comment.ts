@@ -1,48 +1,40 @@
 /* tslint:disable */
 
 declare var Object: any;
-export interface PostInterface {
+export interface CommentInterface {
   "poster": string;
   "posterId": string;
-  "description": string;
-  "comments"?: any;
   "likes"?: any;
-  "location"?: string;
-  "assignedTo"?: any;
   "published": string;
-  "status": string;
+  "comment": string;
   "id"?: number;
 }
 
-export class Post implements PostInterface {
+export class Comment implements CommentInterface {
   "poster": string;
   "posterId": string;
-  "description": string;
-  "comments": any;
   "likes": any;
-  "location": string;
-  "assignedTo": any;
   "published": string;
-  "status": string;
+  "comment": string;
   "id": number;
-  constructor(data?: PostInterface) {
+  constructor(data?: CommentInterface) {
     Object.assign(this, data);
   }
   /**
    * The name of the model represented by this $resource,
-   * i.e. `Post`.
+   * i.e. `Comment`.
    */
   public static getModelName() {
-    return "Post";
+    return "Comment";
   }
   /**
   * @method factory
   * @author Jonathan Casarrubias
   * @license MIT
-  * This method creates an instance of Post for dynamic purposes.
+  * This method creates an instance of Comment for dynamic purposes.
   **/
-  public static factory(data: PostInterface): Post{
-    return new Post(data);
+  public static factory(data: CommentInterface): Comment{
+    return new Comment(data);
   }
   /**
   * @method getModelDefinition
@@ -53,9 +45,9 @@ export class Post implements PostInterface {
   **/
   public static getModelDefinition() {
     return {
-      name: 'Post',
-      plural: 'posts',
-      path: 'posts',
+      name: 'Comment',
+      plural: 'comments',
+      path: 'comments',
       idName: 'id',
       properties: {
         "poster": {
@@ -66,34 +58,17 @@ export class Post implements PostInterface {
           name: 'posterId',
           type: 'string'
         },
-        "description": {
-          name: 'description',
-          type: 'string'
-        },
-        "comments": {
-          name: 'comments',
-          type: 'any'
-        },
         "likes": {
           name: 'likes',
-          type: 'any'
-        },
-        "location": {
-          name: 'location',
-          type: 'string'
-        },
-        "assignedTo": {
-          name: 'assignedTo',
           type: 'any'
         },
         "published": {
           name: 'published',
           type: 'string'
         },
-        "status": {
-          name: 'status',
-          type: 'string',
-          default: '0'
+        "comment": {
+          name: 'comment',
+          type: 'string'
         },
         "id": {
           name: 'id',
