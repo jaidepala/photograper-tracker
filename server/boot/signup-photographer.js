@@ -2,13 +2,14 @@
 
 module.exports = function (app) {
 
-	const User = app.models.People;
+	const People 	= app.models.People,
+		  User 		= app.models.User;
 
-	User.greet = function(msg, cb) {
+	People.greet = function(msg, cb) {
 		cb(null, 'Greetings... ' + msg);
-	}
+	};
 
-	User.remoteMethod(
+	People.remoteMethod(
 		'greet', 
 		{
       		isStatic: true,
@@ -18,40 +19,62 @@ module.exports = function (app) {
 		}
 	);
 
-	User.login = function(req, cb) {
+	People.login = function(req, cb) {
 
 		var email 		= req.email,
 			password 	= req.password;
 
-		User.findOne({
+		People.findOne({
  	 		"where": {	
 				"email": email,
 				"password": password
 			}
-		}, function( err, res ){
+		}, function( err, peopleFindRes ){
 
-			if( err || !res ) {
+			if( err || !peopleFindRes ) {
 
 				var theError = err;
 
-				if(!res)
+				if(!peopleFindRes)
 				{
 				    theError = new Error('Incorrect credentials!');
 				    theError.status = 501;
 				}
 
-				console.error('something went wrong...!', theError);
-				
 				cb(theError);
 
 				return false;
-			}
+			};
 
-			cb(null, res);
+			User.login({
+				"email": email,
+				"password": password
+			}, function( loginErr, loginRes ) {
+
+				if( loginErr || !loginRes ) {
+
+					var theError = loginErr;
+
+					if(!loginRes)
+					{
+					    theError = new Error('Login failed!');
+					    theError.status = 501;
+					}
+
+					cb(theError);
+
+					return false;
+				};
+
+				loginRes.peopleType = peopleFindRes.personType;
+				
+				cb(null, loginRes);
+			})
+
 		});
-	}
+	};
 
-	User.remoteMethod(
+	People.remoteMethod(
 		'login', 
 		{
     		description: "Logs in using People data",
@@ -61,29 +84,56 @@ module.exports = function (app) {
 		}
 	);
 
-	// User.addPhotographer = function(msg, cb) {
+	People.createPeople = function( req, cb ) {
 
-	// 	cb(null, 'Angular and Loopback is now Configured For ' + msg);
-	// 	// process.nextTick(function() {
-	// 	// 	msg = msg || 'hello';
-	// 	// 	cb(null, 'Angular and Loopback is now Configured For ' + msg);
-	// 	// });
-	// };
+		People.create(req, function( peopleCreateErr, peopleCreateRes ) {
 
-	// User.remoteMethod(
-	// 	'addPhotographer', {
-	// 		accepts: {
-	// 			arg: 'msg',
-	// 			type: 'string'
-	// 		},
-	// 		returns: {
-	// 			arg: 'greeting',
-	// 			type: 'string'
-	// 		},
- //            http: {
- //            	path: '/getname',
- //                verb: 'post'
- //            }
-	// 	}
-	// );
+			if( peopleCreateErr || !peopleCreateRes || peopleCreateRes == null ) {
+
+				console.log('peopleCreateErr', peopleCreateErr);
+
+				var errorMessage = peopleCreateErr;
+
+				if( !errorMessage )
+					errorMessage =  new Error('Could not create username.');
+
+				cb( errorMessage );
+
+				return false;
+			}
+
+			User.create({
+				email: req.email,
+				password: req.password
+			}, function( userCreateErr, userCreateRes ) {
+				
+				if( !userCreateRes || userCreateRes == null ) {
+				
+					console.log('userCreateErr', userCreateErr);
+
+					var errorMessage = userCreateError; 
+
+					if( !errorMessage )
+						errorMessage = new Error('Could not create user.');
+
+					cb( errorMessage );
+
+					return false;
+				};
+
+				cb( null, peopleCreateRes );
+			});
+
+		});
+	};
+
+	People.remoteMethod(
+		'createPeople', 
+		{
+    		description: "Create people with a User reference.",
+			accepts: {arg: 'credentials', type: 'object', "http": {"source": "body"}},
+			returns: {arg: 'user', type: 'object'},
+      		http: { verb: 'POST', path: '/create-people' }
+		}
+	);
 };

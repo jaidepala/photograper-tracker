@@ -5,7 +5,9 @@ export const environment = {
 
 		LOGIN: {
 
-			ID: 'ptracker_id' 
+			ID: 'ptracker_id',
+
+			ACCESS_TOKEN: 'ptracker_access_token'
 		}
 	},
 

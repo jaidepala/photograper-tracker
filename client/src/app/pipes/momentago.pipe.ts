@@ -24,17 +24,52 @@ export class MomentagoPipe implements PipeTransform {
 
         var msg = '';
 
-        if( daysDifference ) {
-        	msg = daysDifference + ' days ago.' ;
+        if( daysDifference )
+        {
+            if( daysDifference < 2 ) {
+                var addS = '';
+
+                if( daysDifference > 1 )
+                    addS += 's';
+
+                msg = daysDifference + ' day'+ addS +' ago.' ;
+            }
+            else {
+
+                var theDate = new Date( parseInt( thatDate ) );
+
+                msg = theDate.toDateString();
+            }
         }
-        else if( hoursDifference ) {
-        	msg = hoursDifference + ' hours ago.' ;
-        }
-        else if( minutesDifference ) {
-        	msg = minutesDifference + ' minutes ago.' ;
-        }
-        else if( secondsDifference ) {
-        	msg = secondsDifference + ' seconds ago.' ;
+        else {
+
+            if( hoursDifference ) {
+                var addS = '';
+
+                if( hoursDifference > 1 )
+                    addS += 's';
+
+            	msg = hoursDifference + ' hour'+ addS +' ago.' ;
+            }
+            else if( minutesDifference ) {
+                var addS = '';
+
+                if( minutesDifference > 1 )
+                    addS += 's';
+
+            	msg = minutesDifference + ' minute'+ addS +' ago.' ;
+            }
+            else if( secondsDifference ) {
+                var addS = '';
+
+                if( secondsDifference > 1 )
+                    addS += 's';
+
+                msg = secondsDifference + ' second'+ addS +' ago.' ;
+            }
+            else {
+            	msg = 'few moments ago.' ;
+            }
         }
 
 		return msg;

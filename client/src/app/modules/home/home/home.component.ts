@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { PeopleApi } from './../../../shared/sdk/index';
 import { PostApi } from './../../../shared/sdk/index';
+import { CommentApi } from './../../../shared/sdk/index';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../../environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -51,18 +52,19 @@ export class HomeComponent implements OnInit {
 	constructor(
 		private people 	: PeopleApi,
 		private post 	: PostApi,
+		private comment : CommentApi,
 		private cookieService: CookieService,
 		private router 	: Router
 	) {
+	};
+
+	ngOnInit() {
 
 		if( !this.home.user.details.id || this.home.user.details.id == null ) {
 
 			this.router.navigate(['/login']);
-		}
-
-	};
-
-	ngOnInit() {
+			return false;
+		};
 
 		this.people.findOne(
 		{
@@ -112,15 +114,12 @@ export class HomeComponent implements OnInit {
 
 	getPosts() {
 
-		this.post.find({
-			where: {
-				poster: this.home.user.details.email,
-				posterId: this.home.user.details.id
-			}
-		})
+		this.post.getPost()
 		.subscribe(( result ) => {
 
-			if( !result || result == null ) {
+			var listOfPosts = result.data;
+
+			if( !listOfPosts || listOfPosts == null ) {
 
 				var msg = 'No posts found.';
 
@@ -132,14 +131,14 @@ export class HomeComponent implements OnInit {
 				return false;
 			};
 
-			for(var i = 0, len = result.length; i < len; i++) {
-				var thisPost = result[i];
+			for(var i = 0, len = listOfPosts.length; i < len; i++) {
+				var thisPost = listOfPosts[i];
 
 				thisPost['showCommentBox'] = false;
 				thisPost['commentText'] = '';
 			};
 
-			this.home.post.list = result;
+			this.home.post.list = listOfPosts;
 
 		}, err => {
 
@@ -159,14 +158,13 @@ export class HomeComponent implements OnInit {
 			thisPostPosterId 	= thisPost.posterId,
 			thisPostComment 	= thisPost.commentText;
 
-			console.log(thisPost);
-
-		this.post.updateAttributes(thisPostId, {
-			comment: [{
+		this.comment.addComment(thisPostId, {
+			comment: {
 				poster: this.home.user.details.email,
 				posterId: this.home.user.details.id,
-				text: thisPostComment
-			}]
+				published: new Date().getTime(),
+				description: thisPostComment
+			}
 		})
 		.subscribe(( result ) => {
 
@@ -208,7 +206,6 @@ export class HomeComponent implements OnInit {
 			assignedTo: this.home.post.details.assignedTo,
 			status: this.home.post.details.status,
 			published: new Date().getTime()
-
 		})
 		.subscribe(( result ) => {
 
@@ -224,6 +221,8 @@ export class HomeComponent implements OnInit {
 				return false;
 			};
 
+			this.home.post.details.description = '';
+
 			this.getPosts();
 
 		}, err => {
@@ -235,7 +234,6 @@ export class HomeComponent implements OnInit {
 				title: msg
 			});
 		});
-
 	};
 
 }

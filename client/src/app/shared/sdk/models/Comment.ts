@@ -3,6 +3,7 @@
 declare var Object: any;
 export interface CommentInterface {
   "poster": string;
+  "postId": string;
   "posterId": string;
   "likes"?: any;
   "published": string;
@@ -12,6 +13,7 @@ export interface CommentInterface {
 
 export class Comment implements CommentInterface {
   "poster": string;
+  "postId": string;
   "posterId": string;
   "likes": any;
   "published": string;
@@ -54,13 +56,18 @@ export class Comment implements CommentInterface {
           name: 'poster',
           type: 'string'
         },
+        "postId": {
+          name: 'postId',
+          type: 'string'
+        },
         "posterId": {
           name: 'posterId',
           type: 'string'
         },
         "likes": {
           name: 'likes',
-          type: 'any'
+          type: 'any',
+          default: <any>null
         },
         "published": {
           name: 'published',
@@ -68,7 +75,8 @@ export class Comment implements CommentInterface {
         },
         "comment": {
           name: 'comment',
-          type: 'string'
+          type: 'string',
+          default: ''
         },
         "id": {
           name: 'id',

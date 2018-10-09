@@ -11,22 +11,44 @@ module.exports = function (app) {
 		var poster 		= theComment.poster,
 			posterId	= theComment.posterId,
 			published 	= theComment.published,
-			comment 	= theComment.comment;
+			comment 	= theComment.description;
+
+		// console.log('postId', postId);
+
+		if( !postId || postId == null ) {
+
+			var errorMessage = new Error('Post ID doesn\'t exist.');
+				errorMessage.status = 401;
+
+			// console.log('errorMessage', errorMessage);
+
+			cb( errorMessage );
+
+			return false;
+		};
 
 		Post.findOne({
 			where: { 
 				id: postId
 			}
-		})
-		.then(function( thisPost ) {
+		}, function( thisPostErr, thisPost ) {
 
-			if( !thisPost || thisPost == null ) {
+			if( thisPostErr || !thisPost || thisPost == null ) {
 
-				console.log('no result found...');
+				var errorMessage = thisPostErr;
+
+				if( !errorMessage ) {
+
+					errorMessage = new Error('Could not find poster.');
+					errorMessage.status = 401;
+				};
+
+				// console.log('errorMessage', errorMessage);
+
+				cb( errorMessage );
+
 				return false;
-			}
-
-			console.log('thisPost', thisPost);
+			};
 
 			if( !thisPost.comments || thisPost.comments == null )
 				thisPost.comments = [];
@@ -35,30 +57,36 @@ module.exports = function (app) {
 				
 			allComments.push( theComment );
 
+			// console.log('allComments', typeof allComments, '\n\n', allComments, '\n\n');
+
 			Post.update({ 
 				id: postId
 			}, {
+
 				comments: allComments
-			})
-			.then(function( updateRes ) {
+
+			}, function( updateErr, updateRes ) {
+
+				if( updateErr || !updateRes ) {
+
+					var errorMessage = updateErr;
+
+					if( !errorMessage ) {
+
+						errorMessage = new Error('Could not update post with id ' + postId + '.');
+						errorMessage.status = 401;
+					};
+
+					// console.log('errorMessage', errorMessage);
+
+					cb( errorMessage );
+
+					return false;
+				};
 
 				cb( null, updateRes );
-			})
-			.catch(function( updateErr ) {
-				
-				cb( updateErr );
 			});
-		})
-		.catch(function( err ) {
-
-			console.log(err);
-
-			cb( err )
 		});
-		// process.nextTick(function() {
-		// 	msg = msg || 'hello';
-		// 	cb(null, 'Angular and Loopback is now Configured For ' + msg);
-		// });
 	};
 
 	Comment.remoteMethod(
@@ -67,7 +95,7 @@ module.exports = function (app) {
 			accepts: [{
 				arg: 'postId',
 				description: 'ID of the post.',
-				type: 'number', 
+				type: 'string', 
 				required: true
 			},
 			{
@@ -82,123 +110,173 @@ module.exports = function (app) {
 				type: 'object'
 			},
             http: {
-            	path: '/post/:postId/add-comment',
+            	path: '/post/add-comment',
                 verb: 'post'
             }
 		}
 	);
 
-	Post.getPost = function(posterId, cb) {
+	Post.getPost = function( cb ) {
+
+		var allPosts = [];
 
 		Post.find({
-			where: { 
-				posterId: posterId
-			}
-		})
-		.then(function( postRes ) {
 
-			if( !postRes || postRes == null ) {
+			order: 'published DESC'
 
-				console.log('no result found...');
-				
-				cb('No post found.');
+		}, function( postListErr, postListRes ) {
+
+			if(postListErr || !postListRes || postListRes.length == 0) {
+
+				var errorMessage = postListErr;
+
+				if( !errorMessage )
+				{
+				    errorMessage = new Error('No posts!');
+				    errorMessage.status = 501;
+				}
+
+				// console.log('errorMessage', errorMessage);
+
+				cb( errorMessage );
+
 				return false;
 			};
 
-			postRes.forEach(function(thisPost, ind) {
+			postListRes.forEach(function( thisPost, thisPostIndex ) {
 
-				var thisPosterId 	= thisPost.posterId,
-					thisPostId 		= thisPost.id;
+				// console.log('postListRes length: ', thisPostIndex, ' / ' + (postListRes.length), '\n\n');
+
+				var thisPosterId 		= thisPost.posterId,
+					thisPostId 			= thisPost.id,
+					thisPostComments	= thisPost.comments;
 
 				People.findOne({
 					where: {
 						id: thisPosterId
 					}
-				})
-				.then(function( userRes ) {
+				}, function( posterPersonErr, posterPersonRes ) {
 
-					if( !userRes || userRes == null ) {
+					if( posterPersonErr || !posterPersonRes ) {
 
-						console.log('no user res found...');
+						var errorMessage = posterPersonErr;
 
-						cb('No user found!');
+						if( !errorMessage ) {
+
+							errorMessage = new Error('Could not find poster.');
+							errorMessage.status = 401;
+						};
+
+						// console.log('posterPersonErr', errorMessage);
 
 						return false;
 					};
-
-					Comment.find({
-						where: {
-							id: thisPostId
-						}
-					})
-					.then(function( commentRes ) {
-
-						console.log('commentRes', commentRes);
-
-						People.findOne({
-							where: {
-								id: commentRes.posterId
-							}
-						})
-						.then(function( commentUserRes ) {
-							
-							// var returnRes = {
-
-							// 	description: thisPost.description,
-							// 	published: thisPost.published,
-							// 	status: thisPost.status,
-							// 	comments: thisPost.comments,
-							// 	poster: {
-							// 		email: thisPost.poster,
-							// 		posterId: thisPost.posterId,
-							// 		firstName: commentUserRes.firstname,
-							// 		lastName: commentUserRes.lastname,
-							// 		fullName: commentUserRes.firstname + ' ' + commentUserRes.lastname
-							// 	}
-							// };
-
-							cb(null, commentUserRes);
-						})
-						.catch(function(  commentUserErr ) {
-							
-						});
-
-						
-					})
-					.catch(function( commentErr ) {
-						
-					});
-				})
-				.catch(function( userErr ) {
 					
-					cb( userErr );
+					var posterReturnRes = {
+
+						description: thisPost.description,
+						posterId: thisPost.posterId,
+						published: thisPost.published,
+						status: thisPost.status,
+						id: thisPost.id,
+						// comments: thisPost.comments,
+						comments: [],
+						poster: {
+							email: posterPersonRes.email,
+							firstname: posterPersonRes.firstname,
+							lastname: posterPersonRes.lastname,
+							id: posterPersonRes.id
+						}
+					};
+
+					if( !thisPostComments || thisPostComments.length == 0 ) {
+
+						allPosts.push( posterReturnRes );
+
+						if( thisPostIndex == (postListRes.length - 1)) {
+
+							// console.log('\n\nCALLBACK...\n\n', allPosts, '\n\n');
+
+							cb( null, allPosts );
+						};
+
+						return false;
+					}
+					else {
+
+						thisPostComments.forEach(function( thisComment, thisCommentInd ) {
+
+							// console.log('thisPostComments length: ', thisCommentInd, ' / ' + (thisPostComments.length), '\n\n');
+
+							var thisCommentPosterId = parseInt( thisComment.posterId ),
+								thisCommentPoster 	= thisComment.poster;
+
+							People.findOne({
+								where: {
+									id: thisCommentPosterId
+								}
+							}, function( commentPersonErr, commentPersonRes ) {
+
+								if( commentPersonErr || !commentPersonRes ) {
+
+									var errorMessage = commentPersonErr;
+
+									if( !errorMessage )
+									{
+										errorMessage = new Error('No person for comment id: ' + thisComment.id);
+										errorMessage.status = 401;
+									}
+
+									// console.log('commentPersonErr', errorMessage);
+
+									return false;
+								};
+
+								var commentReturnObj = {
+
+									comment: thisComment.description,
+									published: thisComment.published,
+									poster: {
+										email: commentPersonRes.email,
+										firstname: commentPersonRes.firstname,
+										lastname: commentPersonRes.lastname,
+										id: commentPersonRes.id
+									}
+								};
+
+								posterReturnRes.comments.push( commentReturnObj );
+
+								if( thisCommentInd == (thisPostComments.length - 1) ) {
+
+									allPosts.push( posterReturnRes );
+									
+									if( thisPostIndex == (postListRes.length - 1) ) {
+
+										// console.log('\n\nCALLBACK...\n\n', allPosts, '\n\n');
+
+										cb( null, allPosts );
+									};
+								};
+
+							});
+						});
+					}
 				});
 			});
-
-		})
-		.catch(function( err ) {
-
-			console.log(err);
-
-			cb( err )
 		});
 	};
 
 	Post.remoteMethod(
 		'getPost', {
 			description: 'Get posts.',
-			accepts: [{
-				arg: 'posterid',
-				description: 'ID of the poster.',
-				type: 'number', 
-				required: true
-			}],
+			// accepts: {
+			// },
 			returns: {
 				arg: 'data',
-				type: 'object'
+				type: 'array'
 			},
             http: {
-            	path: '/:posterid/get-posts',
+            	path: '/get-posts',
                 verb: 'get'
             }
 		}

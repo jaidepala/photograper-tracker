@@ -1,3 +1,41 @@
+/*
+    Image
+*/
+   .image_outer_container{
+    margin-top: auto;
+    margin-bottom: auto;
+    border-radius: 50%;
+    position: relative;
+   }
+
+   .image_inner_container{
+    border-radius: 50%;
+    padding: 5px;
+    background: #833ab4; 
+    background: -webkit-linear-gradient(to bottom, #fcb045, #fd1d1d, #833ab4); 
+    background: linear-gradient(to bottom, #fcb045, #fd1d1d, #833ab4);
+   }
+   .image_inner_container img{
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    border: 5px solid white;
+   }
+
+   .image_outer_container .green_icon{
+     background-color: #4cd137;
+     position: absolute;
+     right: 30px;
+     bottom: 10px;
+     height: 30px;
+     width: 30px;
+     border:5px solid white;
+     border-radius: 50%;
+   }
+/*
+    Image
+*/
+
 .h7 {
     font-size: 0.8rem;
 }
@@ -6,26 +44,34 @@
     border: 2px solid black;
 }
 
-.comments .inner .comment {
-    padding: 15px;
-    min-height: 48px;
-    margin-bottom: 10px;
-    color: #ccc;
+/*
+    Comment Box
+*/
+.media-list {
+    
 }
 
-.comments .inner .comment .avatar {
-    width: 48px;
-    height: 48px;
-    float: left;
+.media-list .media {
+    padding: 5px 20px;
+    border-bottom: 1px solid #eaeaea;
 }
 
-.comments .inner .comment .body {
-    margin-left: 55px;
+.media-list .media .media-body {
+    padding: 2px 15px 2px;
 }
 
-.comments .inner .comment .body p {
-    color: black;
+.media-list .media .media-object {
+    width: 50px;
 }
+
+.scroll-widget{
+    overflow: hidden;
+    width: auto;
+    height: 325px;
+}
+/*
+    Comment Box
+*/
 
 .gedf-wrapper {
     margin-top: 0.97rem;

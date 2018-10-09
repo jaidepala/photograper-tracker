@@ -17,6 +17,20 @@
 			<div class="card">
 				<div class="card-body">
 					<div class="h5">
+						<div class="d-flex justify-content-center h-100">
+							<div class="image_outer_container">
+								<div class="green_icon"></div>
+								<div class="image_inner_container">
+									
+									<img 
+											src="https://i0.wp.com/tricksmaze.com/wp-content/uploads/2017/04/Stylish-Girls-Profile-Pictures-36.jpg?resize=300%2C300&ssl=1"
+									/>
+
+							</div>
+							</div>
+						</div>
+					</div>
+					<div class="h5">
 						{{ home.user.details.email }}
 					</div>
 					<div class="h7 text-muted">
@@ -106,14 +120,21 @@
 						<div class="d-flex justify-content-between align-items-center">
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="mr-2">
-									<img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
+									<img 
+											class="rounded-circle" 
+											width="45" 
+											src="https://picsum.photos/50/50" 
+											[alt]="post.poster.firstname + ' ' + post.poster.lastname"
+											[title]="post.poster.firstname + ' ' + post.poster.lastname"
+									/>
 								</div>
 								<div class="ml-2">
 									<div class="h5 m-0">
-										{{ post.poster }}
+										{{ post.poster.firstname }} {{ post.poster.lastname }} 
 									</div>
-									<div class="h7 text-muted">
-										GET-NAME
+									<div class="text-muted h7 mb-2"> 
+										<i class="fa fa-clock-o"></i>
+										{{ post.published | momentago }}
 									</div>
 								</div>
 							</div>
@@ -145,17 +166,12 @@
 						</div>
 					</div>
 					<div class="card-body">
-						<div class="text-muted h7 mb-2"> 
-							<i class="fa fa-clock-o"></i>
-							{{ post.published | momentago }}
-						</div>
-						<a class="card-link" href="#">
-							<h5 class="card-title">
-								Lorem ipsum dolor sit amet, consectetur adip.
+						<a class="card-link">
+							<h5 class="card-title" [innerHTML]="post.description | convertLineBreak">
 							</h5>
 						</a>
 						<p class="card-text">
-							{{ post.description }}
+							<!-- {{ post.description }} -->
 						</p>
 					</div>
 					<div class="card-footer">
@@ -175,38 +191,45 @@
 				    <div 
 				    		class="input-group comment-box"
 				    		*ngIf="post.showCommentBox">
-				        
-					        <input 
-					        		type="text"
-					        		[(ngModel)] ="post.commentText"
+
+							<textarea 
+					        		class="form-control input-sm chat-input" 
+									[(ngModel)]="post.commentText"
 					        		(keyup.enter)="addComments( post )"
 					        		[attr.id]="'user-comment-' + post.id"
-					        		class="form-control input-sm chat-input" 
-			        		/>
+									rows="2" 
+									placeholder="Comment on this..."></textarea>
 				    </div>
 				    <hr>
 				    <div class="comments">
-				    	<div class="inner">
-						    <div class="comment">
-					    		<img 
-					    				class="avatar" 
-					    				alt="avatar" 
-					    				src="https://i.imgur.com/BDuNOi3.png"
-			    				/>
-						    	<div class="body">
-						    		<a>
-						    			Tester 1
-						    		</a>
-							    	<span class="float-right"> 
-							    		<i class="fa fa-clock-o"></i>
-							    		5 minutes before
-							    	</span>
-							    	<p>
-							    		That is cool!
-							    	</p>
-								</div>
-							</div>
-						</div>
+				    	<ul class="media-list">
+							<li
+									class="media"
+									*ngFor="let thisComment of post.comments">
+
+								    <a class="pull-left">
+										<img 
+												class="rounded-circle" 
+												width="45" 
+												src="https://i.imgur.com/BDuNOi3.png" 
+												[alt]="thisComment.firstname + ' ' + thisComment.lastname"
+												[title]="thisComment.firstname + ' ' + thisComment.lastname"
+										/>
+								    </a>
+								    <div class="media-body">
+
+										<div class="h5 m-0">
+											{{ thisComment.poster.firstname }} {{ thisComment.poster.lastname }}
+										</div>
+										<div class="text-muted h7 mb-2"> 
+											<i class="fa fa-clock-o"></i>
+											{{ thisComment.published | momentago }}
+										</div>
+										<h5 [innerHTML]="thisComment.comment | convertLineBreak">
+										</h5>
+								    </div>
+							</li>
+				    	</ul>
 					</div>
 			</div>
 			<!-- Post /////-->

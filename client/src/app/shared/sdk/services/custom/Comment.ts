@@ -92,11 +92,13 @@ export class CommentApi extends BaseLoopBackApi {
   }
 
   /**
-   * <em>
-         * (The remote method definition does not provide any description.)
-         * </em>
+   * Add comment to a particular post.
    *
-   * @param {string} comment 
+   * @param {object} data Request data.
+   *
+   *  - `postId` – `{number}` - ID of the post.
+   *
+   *  - `comment` – `{object}` - Comment object.
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -104,16 +106,17 @@ export class CommentApi extends BaseLoopBackApi {
    *
    * Data properties:
    *
-   *  - `data` – `{string}` - 
+   *  - `data` – `{object}` - 
    */
-  public addComment(comment: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
+  public addComment(postId: any, comment: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/comments/addComment";
+    "/comments/post/add-comment";
     let _routeParams: any = {};
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (typeof comment !== 'undefined' && comment !== null) _urlParams.comment = comment;
+    if (typeof postId !== 'undefined' && postId !== null) _urlParams.postId = postId;
+    if (typeof comment !== 'undefined' && comment !== null) _postBody.comment = comment;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }

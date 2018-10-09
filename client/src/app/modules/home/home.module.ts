@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { CookieService } from 'ngx-cookie-service';
+import { ConvertLineBreakPipe } from './../../pipes/convert-line-break.pipe';
 import { MomentagoPipe } from './../../pipes/momentago.pipe';
 
 import { HomeRoutingModule } from './home-routing.module';
@@ -24,7 +25,8 @@ import { LoadingComponent } from './loading/loading.component';
 		HomeComponent,
 		NotFoundComponent,
 		LoadingComponent,
-		MomentagoPipe
+		MomentagoPipe,
+		ConvertLineBreakPipe
 	]
 })
 export class HomeModule {}

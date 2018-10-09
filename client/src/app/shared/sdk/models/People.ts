@@ -2,6 +2,7 @@
 
 declare var Object: any;
 export interface PeopleInterface {
+  "accessTokens"?: string;
   "firstname"?: string;
   "lastname"?: string;
   "gender"?: string;
@@ -13,6 +14,7 @@ export interface PeopleInterface {
 }
 
 export class People implements PeopleInterface {
+  "accessTokens": string;
   "firstname": string;
   "lastname": string;
   "gender": string;
@@ -54,6 +56,10 @@ export class People implements PeopleInterface {
       path: 'peoples',
       idName: 'id',
       properties: {
+        "accessTokens": {
+          name: 'accessTokens',
+          type: 'string'
+        },
         "firstname": {
           name: 'firstname',
           type: 'string'

@@ -11,8 +11,8 @@ export const environment = {
 		LOGIN: {
 
 			ID: 'ptracker_id',
-			
-			SHOW_LOGIN_MSG: 'ptracker_loginmsg'
+
+			ACCESS_TOKEN: 'ptracker_access_token'
 		}
 	},
 

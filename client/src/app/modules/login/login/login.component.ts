@@ -99,14 +99,18 @@ export class LoginComponent implements OnInit {
 
 			this.login.loader = 2;
 
-			this.cookieService.set( environment.COOKIES.LOGIN.ID, result.user.id );
+			this.cookieService.set( environment.COOKIES.LOGIN.ID, result.user.userId );
+			
+			this.cookieService.set( environment.COOKIES.LOGIN.ACCESS_TOKEN, result.user.id );
 
 			this.toast({
 				type: 'success',
-				title: 'Signed-in successfully!'
+				title: 'Registered successfully!'
 			});
 
 			this.router.navigate(['/home']);
+
+			// window.location.reload();
 
 		}, err => {
 

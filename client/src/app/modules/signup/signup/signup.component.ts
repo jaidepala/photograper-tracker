@@ -107,7 +107,7 @@ export class SignupComponent implements OnInit {
 			personType	= this.signup.person.personType,
 			gender 		= this.signup.person.gender;
 
-		this.people.create({
+		this.people.createPeople({
 			"firstname": firstName,
 			"lastname": lastName,
 			"gender": gender,

@@ -5,7 +5,7 @@ export interface PostInterface {
   "poster": string;
   "posterId": string;
   "description": string;
-  "comments"?: any;
+  "comments"?: Array<any>;
   "likes"?: any;
   "location"?: string;
   "assignedTo"?: any;
@@ -18,7 +18,7 @@ export class Post implements PostInterface {
   "poster": string;
   "posterId": string;
   "description": string;
-  "comments": any;
+  "comments": Array<any>;
   "likes": any;
   "location": string;
   "assignedTo": any;
@@ -72,7 +72,8 @@ export class Post implements PostInterface {
         },
         "comments": {
           name: 'comments',
-          type: 'any'
+          type: 'Array&lt;any&gt;',
+          default: <any>[]
         },
         "likes": {
           name: 'likes',
