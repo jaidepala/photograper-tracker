@@ -136,7 +136,7 @@ module.exports = function (app) {
 				    errorMessage.status = 501;
 				}
 
-				// console.log('errorMessage', errorMessage);
+				console.log('errorMessage', errorMessage);
 
 				cb( errorMessage );
 
@@ -145,7 +145,7 @@ module.exports = function (app) {
 
 			postListRes.forEach(function( thisPost, thisPostIndex ) {
 
-				// console.log('postListRes length: ', thisPostIndex, ' / ' + (postListRes.length), '\n\n');
+				console.log('postListRes length: ', thisPostIndex, ' / ' + (postListRes.length), '\n\n');
 
 				var thisPosterId 		= thisPost.posterId,
 					thisPostId 			= thisPost.id,
@@ -167,7 +167,7 @@ module.exports = function (app) {
 							errorMessage.status = 401;
 						};
 
-						// console.log('posterPersonErr', errorMessage);
+						console.log('posterPersonErr', errorMessage);
 
 						return false;
 					};
@@ -195,7 +195,7 @@ module.exports = function (app) {
 
 						if( thisPostIndex == (postListRes.length - 1)) {
 
-							// console.log('\n\nCALLBACK...\n\n', allPosts, '\n\n');
+							console.log('\n\nCALLBACK...\n\n', allPosts, '\n\n');
 
 							cb( null, allPosts );
 						};
@@ -206,9 +206,9 @@ module.exports = function (app) {
 
 						thisPostComments.forEach(function( thisComment, thisCommentInd ) {
 
-							// console.log('thisPostComments length: ', thisCommentInd, ' / ' + (thisPostComments.length), '\n\n');
+							console.log('thisPostComments length: ', thisCommentInd, ' / ' + (thisPostComments.length), '\n\n');
 
-							var thisCommentPosterId = parseInt( thisComment.posterId ),
+							var thisCommentPosterId = thisComment.posterId,
 								thisCommentPoster 	= thisComment.poster;
 
 							People.findOne({
@@ -223,11 +223,13 @@ module.exports = function (app) {
 
 									if( !errorMessage )
 									{
-										errorMessage = new Error('No person for comment id: ' + thisComment.id);
+										errorMessage = new Error('No person for comment id: ' + thisCommentPosterId);
 										errorMessage.status = 401;
 									}
 
-									// console.log('commentPersonErr', errorMessage);
+									console.log('commentPersonErr', errorMessage);
+
+									cb( errorMessage );
 
 									return false;
 								};
@@ -252,7 +254,7 @@ module.exports = function (app) {
 									
 									if( thisPostIndex == (postListRes.length - 1) ) {
 
-										// console.log('\n\nCALLBACK...\n\n', allPosts, '\n\n');
+										console.log('\n\nCALLBACK...\n\n', allPosts, '\n\n');
 
 										cb( null, allPosts );
 									};

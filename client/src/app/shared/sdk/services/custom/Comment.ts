@@ -96,7 +96,7 @@ export class CommentApi extends BaseLoopBackApi {
    *
    * @param {object} data Request data.
    *
-   *  - `postId` – `{number}` - ID of the post.
+   *  - `postId` – `{string}` - ID of the post.
    *
    *  - `comment` – `{object}` - Comment object.
    *
@@ -116,7 +116,7 @@ export class CommentApi extends BaseLoopBackApi {
     let _postBody: any = {};
     let _urlParams: any = {};
     if (typeof postId !== 'undefined' && postId !== null) _urlParams.postId = postId;
-    if (typeof comment !== 'undefined' && comment !== null) _postBody.comment = comment;
+    if (typeof comment !== 'undefined' && comment !== null) _urlParams.comment = comment;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }

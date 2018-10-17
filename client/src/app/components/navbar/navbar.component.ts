@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
+import { OnInit } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../../environments/environment';
+
+import { UiService } from '../../services/ui.service';
 
 @Component({
 	selector: 'app-navbar',
@@ -7,8 +15,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-	constructor() {}
+    public showLogin: boolean = this.cookieService.get( environment.COOKIES.LOGIN.ID ) ? false : true;
 
-	ngOnInit() {}
+	constructor(
+		private ref 			: ChangeDetectorRef,
+		private cookieService 	: CookieService,
+		private ui 				: UiService
+	) {
+	};
+
+	ngOnInit() {
+
+        this.ui.showNavBarEmitter.subscribe((mode)=>{
+            
+            this.showLogin = mode;
+        });
+	};
 
 }

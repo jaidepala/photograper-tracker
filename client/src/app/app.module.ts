@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppComponent } from './app.component';
 import { SDKBrowserModule } from './shared/sdk/index';
@@ -14,6 +15,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { routing } from './app.routing';
 // import { ConvertLineBreakPipe } from './pipes/convert-line-break.pipe';
 // import { MomentagoPipe } from './pipes/momentago.pipe';
+
+import { UiService } from './services/ui.service';
 
 @NgModule({
     declarations: [
@@ -31,7 +34,12 @@ import { routing } from './app.routing';
         HttpModule,
         SDKBrowserModule.forRoot()
     ],
-    providers: [],
-    bootstrap: [AppComponent]
+    providers: [
+        CookieService,
+        UiService
+    ],
+    bootstrap: [
+        AppComponent
+    ]
 })
 export class AppModule {}

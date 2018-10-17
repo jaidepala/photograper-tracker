@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { UserApi } from './../../../shared/sdk/index';
 import { PeopleApi } from './../../../shared/sdk/index';
 import { Router, ActivatedRoute } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import Swal from 'sweetalert2';
+
+import { environment } from '../../../../environments/environment';
+import { UiService } from './../../../services/ui.service';
 
 @Component({
 	selector: 'app-signup',
@@ -16,6 +20,8 @@ export class SignupComponent implements OnInit {
 	public signup = {
 
 		loader: 0,
+
+		showLogin: this.cookieService.get( environment.COOKIES.LOGIN.ID ) ? false : true,
 
 		person: {
 
@@ -38,12 +44,14 @@ export class SignupComponent implements OnInit {
 	});
 
 	constructor(
-		private user: UserApi,
-		private people: PeopleApi,
-		private router: Router
+		private user 			: UserApi,
+		private cookieService 	: CookieService,
+		private people 			: PeopleApi,
+		private ui 				: UiService,
+		private router 			: Router
 	) {
 
-		console.log(this.people);
+		this.ui.showNavBar( this.signup.showLogin );
 	};
 
 	ngOnInit() {};

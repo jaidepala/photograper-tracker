@@ -1,11 +1,18 @@
 import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
-import Swal from 'sweetalert2';
+// import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+import { CanActivate } from '@angular/router';
+import { ActivatedRouteSnapshot } from '@angular/router';
+import { RouterStateSnapshot } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
+import Swal from 'sweetalert2';
 import { environment } from '../../../../environments/environment';
 import { UserApi } from './../../../shared/sdk/index';
 import { PeopleApi } from './../../../shared/sdk/index';
-import { Router, ActivatedRoute } from '@angular/router';
+
+import { UiService } from './../../../services/ui.service';
 
 @Component({
 	selector: 'app-login',
@@ -32,10 +39,11 @@ export class LoginComponent implements OnInit {
 	});
 
 	constructor(
-		private user 	: UserApi,
-		private people 	: PeopleApi,
-		private cookieService: CookieService,
-		private router 	: Router
+		private user 			: UserApi,
+		private people 			: PeopleApi,
+		private cookieService 	: CookieService,
+		private router 			: Router,
+		private ui 				: UiService
 	) {
 
 
@@ -100,13 +108,17 @@ export class LoginComponent implements OnInit {
 			this.login.loader = 2;
 
 			this.cookieService.set( environment.COOKIES.LOGIN.ID, result.user.userId );
+
+			this.cookieService.set( environment.COOKIES.LOGIN.EMAIL, userName );
 			
 			this.cookieService.set( environment.COOKIES.LOGIN.ACCESS_TOKEN, result.user.id );
 
 			this.toast({
 				type: 'success',
-				title: 'Registered successfully!'
+				title: 'Logged in successfully!'
 			});
+
+			this.ui.showNavBar( true );
 
 			this.router.navigate(['/home']);
 

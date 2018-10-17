@@ -7,6 +7,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../../environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { UiService } from './../../../services/ui.service';
+
 @Component({
 	selector: 'app-home',
 	templateUrl: './home.component.html',
@@ -50,17 +52,20 @@ export class HomeComponent implements OnInit {
 	});
 
 	constructor(
-		private people 	: PeopleApi,
-		private post 	: PostApi,
-		private comment : CommentApi,
-		private cookieService: CookieService,
-		private router 	: Router
+		private people 			: PeopleApi,
+		private post 			: PostApi,
+		private comment 		: CommentApi,
+		private cookieService 	: CookieService,
+		private router 			: Router,
+		private ui 				: UiService
 	) {
 	};
 
 	ngOnInit() {
 
 		if( !this.home.user.details.id || this.home.user.details.id == null ) {
+
+			this.ui.showNavBar( true );
 
 			this.router.navigate(['/login']);
 			return false;
@@ -85,6 +90,8 @@ export class HomeComponent implements OnInit {
 
 				return false;
 			}
+
+			this.ui.showNavBar( false );
 
 			this.home.user.details.firstName 	= result['firstname'];
 			this.home.user.details.lastName 	= result['lastname'];
