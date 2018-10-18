@@ -10,9 +10,9 @@
         "start": "nodemon .",
         "start-node": "node .",
         "deploy": "git push origin master && git push heroku master",
-        "heroku-prebuild": "echo Prebuild started...",
+        "heroku-prebuild": "cd client && ng build --aot --prod",
         "heroku-postbuild": "echo Postbuild started...",
-        "postinstall": "cd client && ng build --aot --prod",
+        "postinstall": "echo Post Install started...",
         "posttest": "npm run lint && nsp check",
         "build:sdk": "./node_modules/.bin/lb-sdk server/server.js ./client/src/app/shared/sdk"
     },
