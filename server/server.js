@@ -19,8 +19,8 @@ app.start = function() {
         app.emit('started');
 
         // app.use(loopback.static(path.resolve(__dirname, '../client')));
-        app.use(loopback.static(path.resolve(__dirname, '../client/dist')));
-    
+        app.use(loopback.static(path.resolve(__dirname, '../client')));
+
         var baseUrl = app.get('url').replace(/\/$/, '');
         console.log('Web server listening at: %s', baseUrl);
         if (app.get('loopback-component-explorer')) {

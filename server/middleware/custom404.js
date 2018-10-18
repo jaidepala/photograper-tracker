@@ -9,6 +9,10 @@ to your angular index so that angular's router can take it from there.
 
 This will redirect back to your angular app
 and angular's router will route the url correctly while still being served by loopback.
+
+Ref:
+https://stackoverflow.com/questions/44112896/how-to-configure-loopback-to-serve-angular4-app
+
 */
 module.exports = function() {
     var path = require('path');
