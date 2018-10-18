@@ -1,18 +1,19 @@
 {
     "name": "photographer-tracker-loopback",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "main": "server/server.js",
     "engines": {
-        "node": ">=4"
+        "node": "6.11.0",
+        "npm": "3.10.10"
     },
     "scripts": {
         "lint": "eslint .",
-        "start": "nodemon .",
-        "start-node": "node .",
+        "start-node": "nodemon .",
+        "start": "node .",
         "deploy": "git push origin master && git push heroku master",
-        "heroku-prebuild": "cd client && ng build --aot --prod",
+        "heroku-prebuild": "echo Prebuild started...",
         "heroku-postbuild": "echo Postbuild started...",
-        "postinstall": "echo Post Install started...",
+        "postinstall": "ng build --aot -prod",
         "posttest": "npm run lint && nsp check",
         "build:sdk": "./node_modules/.bin/lb-sdk server/server.js ./client/src/app/shared/sdk"
     },
