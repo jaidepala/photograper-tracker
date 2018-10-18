@@ -10,7 +10,7 @@
         "lint": "eslint .",
         "start-node": "nodemon .",
         "start": "node .",
-        "deploy": "git push origin master && git push heroku master",
+        "deploy": "git push -u origin master",
         "heroku-prebuild": "echo Prebuild started...",
         "heroku-postbuild": "echo Postbuild started...",
         "posttest": "npm run lint && nsp check",
