@@ -6,6 +6,21 @@ var path = require('path');
 
 var app = module.exports = loopback();
 
+// If an incoming request uses
+// a protocol other than HTTPS,
+// redirect that request to the
+// same url but with HTTPS
+const forceSSL = function() {
+  return function (req, res, next) {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+      return res.redirect(
+       ['https://', req.get('Host'), req.url].join('')
+      );
+    }
+    next();
+  }
+}
+
 app.start = function() {
     // start the web server
     // Reference:
@@ -20,6 +35,11 @@ app.start = function() {
 
         // app.use(loopback.static(path.resolve(__dirname, '../client')));
         app.use(loopback.static(path.resolve(__dirname, '../client')));
+
+        // Instruct the app
+        // to use the forceSSL
+        // middleware
+        app.use(forceSSL());
 
         var baseUrl = app.get('url').replace(/\/$/, '');
         console.log('Web server listening at: %s', baseUrl);
