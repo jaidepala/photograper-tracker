@@ -1,5 +1,5 @@
 {
-    "name": "loopback3-angular-starter",
+    "name": "photographer-tracker-loopback",
     "version": "1.0.0",
     "main": "server/server.js",
     "engines": {

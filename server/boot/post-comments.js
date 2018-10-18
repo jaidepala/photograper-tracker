@@ -101,6 +101,9 @@ module.exports = function (app) {
 			{
 				arg: 'comment',
 				in: 'body',
+				'http': {
+					source: 'body'
+				},
 				type: 'object',
 				description: 'Comment object.',
 				required: true
@@ -145,7 +148,7 @@ module.exports = function (app) {
 
 			postListRes.forEach(function( thisPost, thisPostIndex ) {
 
-				console.log('postListRes length: ', thisPostIndex, ' / ' + (postListRes.length), '\n\n');
+				// console.log('postListRes length: ', thisPostIndex, ' / ' + (postListRes.length), '\n\n');
 
 				var thisPosterId 		= thisPost.posterId,
 					thisPostId 			= thisPost.id,
@@ -195,7 +198,7 @@ module.exports = function (app) {
 
 						if( thisPostIndex == (postListRes.length - 1)) {
 
-							console.log('\n\nCALLBACK...\n\n', allPosts, '\n\n');
+							// console.log('\n\nCALLBACK...\n\n', allPosts, '\n\n');
 
 							cb( null, allPosts );
 						};
@@ -206,7 +209,7 @@ module.exports = function (app) {
 
 						thisPostComments.forEach(function( thisComment, thisCommentInd ) {
 
-							console.log('thisPostComments length: ', thisCommentInd, ' / ' + (thisPostComments.length), '\n\n');
+							// console.log('thisPostComments length: ', thisCommentInd, ' / ' + (thisPostComments.length), '\n\n');
 
 							var thisCommentPosterId = thisComment.posterId,
 								thisCommentPoster 	= thisComment.poster;
@@ -234,6 +237,8 @@ module.exports = function (app) {
 									return false;
 								};
 
+								console.log('\nthisComment: \n', thisComment, '\n\n');
+
 								var commentReturnObj = {
 
 									comment: thisComment.description,
@@ -245,6 +250,8 @@ module.exports = function (app) {
 										id: commentPersonRes.id
 									}
 								};
+
+								console.log('\ncommentReturnObj: \n', commentReturnObj, '\n\n');
 
 								posterReturnRes.comments.push( commentReturnObj );
 

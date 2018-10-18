@@ -113,10 +113,11 @@ export class CommentApi extends BaseLoopBackApi {
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/comments/post/add-comment";
     let _routeParams: any = {};
-    let _postBody: any = {};
+    let _postBody: any = {
+      comment: comment
+    };
     let _urlParams: any = {};
     if (typeof postId !== 'undefined' && postId !== null) _urlParams.postId = postId;
-    if (typeof comment !== 'undefined' && comment !== null) _urlParams.comment = comment;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }

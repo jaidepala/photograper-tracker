@@ -35,6 +35,13 @@
 					Logout
 				</a>
 			</li>
+			<li class="nav-item" routerLinkActive="active" *ngIf="!showLogin">
+				<a 
+					class="nav-link" 
+					routerLink="settings">
+					Settings
+				</a>
+			</li>
 		</ul>
 		<form class="form-inline my-2 my-lg-0">
 			<input class="form-control mr-sm-2" type="text" placeholder="Search">

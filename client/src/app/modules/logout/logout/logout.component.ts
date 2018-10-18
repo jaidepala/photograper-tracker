@@ -38,6 +38,14 @@ export class LogoutComponent implements OnInit {
 
 	ngOnInit() {
 
+		this.cookieService.delete( environment.COOKIES.LOGIN.ID );
+
+		this.cookieService.delete( environment.COOKIES.LOGIN.EMAIL );
+		
+		this.cookieService.delete( environment.COOKIES.LOGIN.ACCESS_TOKEN );
+
+		this.router.navigate(['/home']);
+
 		this.user.logout()
 		.subscribe(( result ) => {
 
