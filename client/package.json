@@ -7,6 +7,8 @@
         "start": "ng serve",
         "postinstall": "ng build --aot -prod",
         "start-aot": "ng serve --aot",
+        "heroku-prebuild": "echo Prebuild again started...",
+        "heroku-postbuild": "echo Postbuild again started...",
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",
