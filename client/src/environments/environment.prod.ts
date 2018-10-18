@@ -7,9 +7,11 @@ export const environment = {
 
 			ID: 'ptracker_id',
 
+			EMAIL: 'ptracker_email',
+
 			ACCESS_TOKEN: 'ptracker_access_token'
 		}
 	},
 
-	DOMAIN: "http://127.0.0.1:8080"
+	DOMAIN: "https://photographer-tracker.herokuapp.com/"
 };

@@ -9,6 +9,9 @@
         "lint": "eslint .",
         "start": "nodemon .",
         "start-node": "node .",
+        "heroku-prebuild": "echo Prebuild started...",
+        "heroku-postbuild": "echo Postbuild started...",
+        "postinstall": "ng build --aot --prod",
         "posttest": "npm run lint && nsp check",
         "build:sdk": "./node_modules/.bin/lb-sdk server/server.js ./client/src/app/shared/sdk"
     },
