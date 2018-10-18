@@ -12,6 +12,9 @@ app.start = function() {
     var port = process.env.PORT || 3000;
 
     app.set('port', port);
+
+    app.use(loopback.static(path.resolve(__dirname, '../client')));
+    app.use(loopback.static(path.resolve(__dirname, '../client/dist')));
     
     // start the web server
     return app.listen(function() {

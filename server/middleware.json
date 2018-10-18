@@ -41,9 +41,15 @@
     }
   },
   "files": {
-    "loopback#static": {
-      "params": "$!../client"
-    }
+    "loopback#static": [{
+        "name": "client",
+        "paths": ["/client"],
+        "params": "$!../client"
+    }, {
+        "name": "clientdist",
+        "paths": ["/client/dist"],
+        "params": "$!../client/dist"
+    }]
   },
   "final": {
     "./middleware/custom404": {}
