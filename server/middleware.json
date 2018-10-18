@@ -41,11 +41,11 @@
     }
   },
   "files": {
-    "loopback#static": [{
-        "name": "client",
+    "loopback#static": {
+        "name": "dist",
         "paths": ["/client/dist"],
         "params": "$!../client/dist"
-    }]
+    }
   },
   "final": {
     "./middleware/custom404": {}
