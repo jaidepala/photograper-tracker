@@ -34,21 +34,21 @@ app.start = function() {
         app.emit('started');
 
         // app.use(loopback.static(path.resolve(__dirname, '../client')));
-        app.use(loopback.static(path.resolve(__dirname, '../client')));
+        app.use(loopback.static(path.resolve(__dirname, '../client/dist')));
 
         // Instruct the app
         // to use the forceSSL
         // middleware
-        app.use(forceSSL());
+        // app.use(forceSSL());
 
         // Catch all other routes and return the index file
-        app.get('*', (req, res) => {
-            res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-        });
+        // app.get('*', (req, res) => {
+        //     res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+        // });
 
-        app.get('/', function(req, res) {
-            res.sendFile(path.join(__dirname, 'src', 'index.html'));
-        });
+        // app.get('/', function(req, res) {
+        //     res.sendFile(path.join(__dirname, 'src', 'index.html'));
+        // });
 
         var baseUrl = app.get('url').replace(/\/$/, '');
         console.log('Web server listening at: %s', baseUrl);
