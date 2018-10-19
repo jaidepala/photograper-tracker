@@ -28,23 +28,23 @@ app.start = function() {
     var port = process.env.PORT || 3000;
 
     app.set('port', port);
+
+    // app.use(loopback.static(path.resolve(__dirname, '../client')));
+    app.use(loopback.static(path.resolve(__dirname, '../client')));
+
+    // Instruct the app
+    // to use the forceSSL
+    // middleware
+    app.use(forceSSL());
+
+    // Catch all other routes and return the index file
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'dist/index.html'));
+    });
     
     // start the web server
     return app.listen(function() {
         app.emit('started');
-
-        // app.use(loopback.static(path.resolve(__dirname, '../client')));
-        app.use(loopback.static(path.resolve(__dirname, '../client')));
-
-        // Instruct the app
-        // to use the forceSSL
-        // middleware
-        app.use(forceSSL());
-
-        // Catch all other routes and return the index file
-        app.get('*', (req, res) => {
-            res.sendFile(path.join(__dirname, 'dist/index.html'));
-        });
 
         var baseUrl = app.get('url').replace(/\/$/, '');
         console.log('Web server listening at: %s', baseUrl);
