@@ -41,6 +41,11 @@ app.start = function() {
         // middleware
         app.use(forceSSL());
 
+        // Catch all other routes and return the index file
+        app.get('*', (req, res) => {
+            res.sendFile(path.join(__dirname, 'dist/index.html'));
+        });
+
         var baseUrl = app.get('url').replace(/\/$/, '');
         console.log('Web server listening at: %s', baseUrl);
         if (app.get('loopback-component-explorer')) {
