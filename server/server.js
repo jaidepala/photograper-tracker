@@ -43,7 +43,11 @@ app.start = function() {
 
         // Catch all other routes and return the index file
         app.get('*', (req, res) => {
-            res.sendFile(path.join(__dirname, 'dist/index.html'));
+            res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+        });
+
+        app.get('/', function(req, res) {
+            res.sendFile(path.join(__dirname, 'src', 'index.html'));
         });
 
         var baseUrl = app.get('url').replace(/\/$/, '');

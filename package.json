@@ -14,7 +14,7 @@
     "heroku-prebuild": "echo Prebuild started...",
     "heroku-postbuild": "echo Postbuild started...",
     "preinstall": "npm install -g angular-cli",
-    "postinstall": "cd client && ng build --aot -prod",
+    "postinstall": "cd client && ng build --target production --build-optimizer --vendor-chunk --prod --named-chunks false --sourcemaps false --output-hashing all",
     "posttest": "npm run lint && nsp check",
     "build:sdk": "./node_modules/.bin/lb-sdk server/server.js ./client/src/app/shared/sdk"
   },
