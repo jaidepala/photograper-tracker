@@ -1,64 +1,51 @@
 {
-    "name": "post",
-    "plural": "posts",
-    "base": "PersistedModel",
-    "idInjection": true,
-    "options":
-    {
-        "validateUpsert": true
+  "name": "post",
+  "plural": "posts",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "poster": {
+      "type": "string",
+      "required": true
     },
-    "properties":
-    {
-        "poster":
-        {
-            "type": "string",
-            "required": true
-        },
-        "posterId":
-        {
-            "type": "string",
-            "required": true
-        },
-        "description":
-        {
-            "type": "string",
-            "required": true
-        },
-        "comments":
-        {
-            "type": [
-                "object"
-            ],
-            "default": []
-        },
-        "likes":
-        {
-            "type": "object"
-        },
-        "location":
-        {
-            "type": "string"
-        },
-        "assignedTo":
-        {
-            "type": "array"
-        },
-        "published":
-        {
-            "type": "string",
-            "required": true
-        },
-        "status":
-        {
-            "type": "string",
-            "required": true,
-            "default": "0"
-        }
+    "posterId": {
+      "type": "string",
+      "required": true
     },
-    "validations": [],
-    "relations":
-    {},
-    "acls": [],
-    "methods":
-    {}
+    "description": {
+      "type": "string",
+      "required": true
+    },
+    "comments": {
+      "type": [
+        "object"
+      ],
+      "default": []
+    },
+    "likes": {
+      "type": "object"
+    },
+    "location": {
+      "type": "string"
+    },
+    "assignedTo": {
+      "type": "array"
+    },
+    "published": {
+      "type": "string",
+      "required": true
+    },
+    "status": {
+      "type": "string",
+      "required": true,
+      "default": "0"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
 }

@@ -11,7 +11,7 @@ export interface PostInterface {
   "assignedTo"?: any;
   "published": string;
   "status": string;
-  "id"?: number;
+  "id"?: any;
 }
 
 export class Post implements PostInterface {
@@ -24,7 +24,7 @@ export class Post implements PostInterface {
   "assignedTo": any;
   "published": string;
   "status": string;
-  "id": number;
+  "id": any;
   constructor(data?: PostInterface) {
     Object.assign(this, data);
   }
@@ -98,7 +98,7 @@ export class Post implements PostInterface {
         },
         "id": {
           name: 'id',
-          type: 'number'
+          type: 'any'
         },
       },
       relations: {

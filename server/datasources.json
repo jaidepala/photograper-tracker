@@ -1,21 +1,34 @@
 {
-  "db": {
-    "name": "db",
-    "connector": "memory"
-  },
-  "myRest": {
-    "name": "myRest",
-    "connector": "rest",
-    "operations": [
-      {
-        "template": {
-          "method": "GET",
-          "url": "http://www.mocky.io/v2/5808862710000087232b75ac"
-        },
-        "functions": {
-          "find": []
-        }
-      }
-    ]
-  }
+    "db":
+    {
+        "name": "db",
+        "connector": "mongodb"
+    },
+    "myRest":
+    {
+        "name": "myRest",
+        "connector": "rest",
+        "operations": [
+        {
+            "template":
+            {
+                "method": "GET",
+                "url": "http://www.mocky.io/v2/5808862710000087232b75ac"
+            },
+            "functions":
+            {
+                "find": []
+            }
+        }]
+    },
+    "datasourcedev":
+    {
+        "name": "datasourcedev",
+        "connector": "mongodb",
+        "host": "demo.strongloop.com",
+        "port": 27017,
+        "database": "demo",
+        "username": "demo",
+        "password": "L00pBack"
+    }
 }

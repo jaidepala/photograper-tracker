@@ -10,7 +10,7 @@ export interface PeopleInterface {
   "personType": string;
   "phone": string;
   "location"?: string;
-  "id"?: number;
+  "id"?: any;
 }
 
 export class People implements PeopleInterface {
@@ -22,7 +22,7 @@ export class People implements PeopleInterface {
   "personType": string;
   "phone": string;
   "location": string;
-  "id": number;
+  "id": any;
   constructor(data?: PeopleInterface) {
     Object.assign(this, data);
   }
@@ -90,7 +90,7 @@ export class People implements PeopleInterface {
         },
         "id": {
           name: 'id',
-          type: 'number'
+          type: 'any'
         },
       },
       relations: {

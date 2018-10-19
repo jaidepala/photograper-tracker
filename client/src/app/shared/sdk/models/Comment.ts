@@ -8,7 +8,7 @@ export interface CommentInterface {
   "likes"?: any;
   "published": string;
   "comment": string;
-  "id"?: number;
+  "id"?: any;
 }
 
 export class Comment implements CommentInterface {
@@ -18,7 +18,7 @@ export class Comment implements CommentInterface {
   "likes": any;
   "published": string;
   "comment": string;
-  "id": number;
+  "id": any;
   constructor(data?: CommentInterface) {
     Object.assign(this, data);
   }
@@ -80,7 +80,7 @@ export class Comment implements CommentInterface {
         },
         "id": {
           name: 'id',
-          type: 'number'
+          type: 'any'
         },
       },
       relations: {
