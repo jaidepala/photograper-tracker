@@ -13,7 +13,8 @@
     "deploy": "git push -u origin master",
     "heroku-prebuild": "echo Prebuild started...",
     "heroku-postbuild": "echo Postbuild started...",
-    "postinstall": "ng build --aot -prod",
+    "preinstall": "npm install -g angular-cli",
+    "postinstall": "cd client && ng build --aot -prod",
     "posttest": "npm run lint && nsp check",
     "build:sdk": "./node_modules/.bin/lb-sdk server/server.js ./client/src/app/shared/sdk"
   },
