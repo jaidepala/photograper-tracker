@@ -34,7 +34,7 @@ app.start = function() {
         app.emit('started');
 
         // app.use(loopback.static(path.resolve(__dirname, '../client')));
-        app.use(loopback.static(path.resolve(__dirname, '../client/dist')));
+        app.use(loopback.static(path.resolve(__dirname, 'client/dist')));
 
         // Instruct the app
         // to use the forceSSL
@@ -42,9 +42,9 @@ app.start = function() {
         // app.use(forceSSL());
 
         // Catch all other routes and return the index file
-        // app.get('*', (req, res) => {
-        //     res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-        // });
+        app.get('*', (req, res) => {
+            res.sendFile(path.join(__dirname, 'client/dist/index.html'));
+        });
 
         // app.get('/', function(req, res) {
         //     res.sendFile(path.join(__dirname, 'src', 'index.html'));
